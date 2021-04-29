@@ -4,12 +4,22 @@ const img = new Image(); // used to load image from <input> and draw to canvas
 
 // Fires whenever the img object loads a new image (such as with img.src =)
 img.addEventListener('load', () => {
+  var image = document.getElementById('input').files[0]
   // TODO
-
+  console.log("listener fired!")
+  const canvas = document.getElementById('user-image');
+  const ctx = canvas.getContext('2d');
   // Some helpful tips:
   // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
+  ctx.beginPath();
+  ctx.rect(0, 0, 400, 400);
+  ctx.fillStyle = "black";
+  ctx.fill();
   // - Clear the form when a new image is selected
+
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
+  let gotDimensions = getDimensions(canvas.width, canvas.height, image.width, image.height);
+
 });
 
 /**
@@ -23,7 +33,7 @@ img.addEventListener('load', () => {
  * and also the starting X and starting Y coordinate to be used when you draw the new image to the
  * Canvas. These coordinates align with the top left of the image.
  */
-function getDimmensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
+function getDimensions(canvasWidth, canvasHeight, imageWidth, imageHeight) {
   let aspectRatio, height, width, startX, startY;
 
   // Get the aspect ratio, used so the picture always fits inside the canvas

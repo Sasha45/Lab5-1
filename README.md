@@ -1,7 +1,7 @@
 # CSE110 SP21 Lab 5
 
 ## Author(s):
-- YOUR NAME
+- Oleksandr (Sasha) Kubichka
 
 ## Part 1:
 
