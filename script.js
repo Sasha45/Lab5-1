@@ -9,15 +9,27 @@ var img = new Image()
 //the image upload button
 const img_input = document.getElementById("image-input");
 //add listener to image upload
-img_input.addEventListener('change', function (){
+img_input.addEventListener('input', function (){
   //alert("AAAAAAAAAAAAAA");
   doStuffPleaseGod();
-  doStuffPleaseGod();
-  wait(2000);
-  doStuffPleaseGod();
-  wait(2000);
-  alert("aaaaaaaaaaa");
+  //doStuffPleaseGod();
+  promisedSalvation();
+  //wait(2000);
+  //doStuffPleaseGod();
+  //wait(2000);
+  //alert("aaaaaaaaaaa");
 });
+
+//shamelessly stolen from stackoverflow
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+//please work please work please work
+async function promisedSalvation(){
+  await sleep(50);
+  doStuffPleaseGod();
+}
 
 
 const submit_button = document.querySelector("[type = 'submit']");
@@ -33,18 +45,18 @@ function doStuffPleaseGod(){
   //just to make sure this is running
   //alert("Hello there!");
 
-  wait(1000);
+  //wait(1000);
   var file = img_input.files[0];
-  wait(1000);
+  //wait(1000);
   if(true){
     //img.src = URL.createObjectURL(file);
     img.src = "images/lab.jpg"
     //console.log(img);
-    console.log(img.src);
+    //console.log(img.src);
   }
   
 
-  wait(1000);
+  //wait(1000);
   // TODO
   console.log("listener fired!");
   const canvas = document.getElementById('user-image');
@@ -58,12 +70,12 @@ function doStuffPleaseGod(){
   // - Clear the form when a new image is selected
 
   //wait
-  wait(1000);
+  //wait(1000);
 
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
   let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
   ctx.drawImage(img, gotDimensions.startX, gotDimensions.startY, gotDimensions.width, gotDimensions.height);
-  wait(1000);
+  //wait(1000);
   ctx.drawImage(img, 20, 20, 100, 100);
   //document.body.appendChild(img);
   console.log("last line");
