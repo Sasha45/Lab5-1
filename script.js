@@ -4,15 +4,17 @@ var ctr = 0;
 
 //placeholder for uploaded image
 var img = new Image()
-img.src = "images/lab.jpg";
+//img.src = "images/lab.jpg";
 
 //the image upload button
 const img_input = document.getElementById("image-input");
 //add listener to image uplaod
-img_input.addEventListener('input', onUploaderBrush());
+img_input.addEventListener('change', onUploaderBrush);
 
 function onUploaderBrush(){
   alert("AAAAAAAAAAAAAA");
+  doStuffPleaseGod();
+  doStuffPleaseGod();
 }
 
 
@@ -23,8 +25,8 @@ submit_button.addEventListener('click', doStuffPleaseGod);
 
 //whenever *anything* happens, apparently. sheesh.
 function doStuffPleaseGod(){
-  ctr += 1;
-  submit_button.textContent = "aaaaaa" + ctr;
+  //ctr += 1;
+  //submit_button.textContent = "aaaaaa" + ctr;
 
   //just to make sure this is running
   //alert("Hello there!");
@@ -32,8 +34,10 @@ function doStuffPleaseGod(){
 
   var file = img_input.files[0];
   if(img != null){
-    //img.src = URL.createObjectURL(file);
-    img.src = "images/lab.jpg"
+    img.src = URL.createObjectURL(file);
+    //img.src = "images/lab.jpg"
+    console.log(img);
+    console.log(img.src);
   }
   
 
@@ -53,7 +57,9 @@ function doStuffPleaseGod(){
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
   let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
   ctx.drawImage(img, gotDimensions.startX, gotDimensions.startY, gotDimensions.width, gotDimensions.height);
-  document.body.appendChild(img);
+  ctx.drawImage(img, 20, 20, 100, 100);
+  //document.body.appendChild(img);
+  console.log("last line");
 }
 
 
