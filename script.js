@@ -4,7 +4,11 @@
 
 //placeholder for uploaded image
 var img = new Image()
-//img.src = "images/lab.jpg";
+
+//canvas
+const canvas = document.getElementById('user-image');
+//context
+const ctx = canvas.getContext('2d');
 
 //the image upload button
 const img_input = document.getElementById("image-input");
@@ -18,8 +22,6 @@ img.addEventListener("load", () =>{
 });
 async function onImageLoaded(){
   await sleep(50);
-  const canvas = document.getElementById('user-image');
-  const ctx = canvas.getContext('2d');
   ctx.beginPath();
   ctx.rect(0, 0, 400, 400);
   ctx.fillStyle = "black";
@@ -46,12 +48,35 @@ async function onImageUpload(){
 const submit_button = document.querySelector("[type = 'submit']");
 const textbox_top = document.querySelector("[id='text-top']");
 const textbox_bottom = document.querySelector("[id='text-bottom']");
+const form = document.querySelector("[id='generate-meme']")
+form.addEventListener("submit", onSubmit);
+submit_button.addEventListener("click", onSubmit);
 
-submit_button.addEventListener("submit", function(){
-  ctx.font = "30px Impact";
-ctx.fillText(textbox_top.textContent, 10, 50);
-});
+const clear_button = document.querySelector("[type='reset']");
+const read_text = document.querySelector("[type='button']");
 
+function onSubmit(){
+  //setup font
+  ctx.font = "50px Impact";
+  ctx.textAlign = "center";
+  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 5;
+  ctx.fillStyle = 'white';
+  //setup text content
+  let top_text = textbox_top.value.toUpperCase();
+  let bottom_text = textbox_bottom.value.toUpperCase();
+  //write top text
+  ctx.strokeText(top_text, canvas.width/2, 60)
+  ctx.fillText(top_text, canvas.width/2, 60);
+  //write bottom text
+  ctx.strokeText(bottom_text, canvas.width/2, canvas.height-20)
+  ctx.fillText(bottom_text, canvas.width/2, canvas.height-20);
+  //alert("AAAA");
+
+  //toggle "relevant" buttons
+  clear_button.disabled = false;
+  read_text.disabled = false;
+}
 
 
 
