@@ -27,7 +27,7 @@ function sleep(ms) {
 
 //please work please work please work
 async function promisedSalvation(){
-  await sleep(50);
+  await sleep(5000);
   doStuffPleaseGod();
 }
 
@@ -35,10 +35,10 @@ async function promisedSalvation(){
 const submit_button = document.querySelector("[type = 'submit']");
 submit_button.textContent = "hello";
 
-submit_button.addEventListener('click', doStuffPleaseGod);
+//submit_button.addEventListener('click', doStuffPleaseGod);
 
 //whenever *anything* happens, apparently. sheesh.
-function doStuffPleaseGod(){
+async function doStuffPleaseGod(){
   //ctr += 1;
   //submit_button.textContent = "aaaaaa" + ctr;
 
@@ -49,13 +49,13 @@ function doStuffPleaseGod(){
   var file = img_input.files[0];
   //wait(1000);
   if(true){
-    //img.src = URL.createObjectURL(file);
-    img.src = "images/lab.jpg"
+    img.src = URL.createObjectURL(file);
+    //img.src = "images/lab.jpg"
     //console.log(img);
     //console.log(img.src);
   }
   
-
+  await sleep(500);
   //wait(1000);
   // TODO
   console.log("listener fired!");
@@ -71,6 +71,7 @@ function doStuffPleaseGod(){
 
   //wait
   //wait(1000);
+  await sleep(500);
 
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
   let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
@@ -78,6 +79,9 @@ function doStuffPleaseGod(){
   //wait(1000);
   ctx.drawImage(img, 20, 20, 100, 100);
   //document.body.appendChild(img);
+  //var fakeImg = document.createElement("img");
+  ///fakeImg
+  //document.body.appendChild(fakeImg);
   console.log("last line");
 }
 
