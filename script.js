@@ -9,15 +9,21 @@ var img = new Image()
 //the image upload button
 const img_input = document.getElementById("image-input");
 //add listener to image upload
+
 img_input.addEventListener('input', function (){
   //alert("AAAAAAAAAAAAAA");
-  doStuffPleaseGod();
   //doStuffPleaseGod();
-  promisedSalvation();
+  //doStuffPleaseGod();
+  //promisedSalvation();
   //wait(2000);
   //doStuffPleaseGod();
   //wait(2000);
   //alert("aaaaaaaaaaa");
+  dirtyFix1();
+});
+
+img.addEventListener("load", function(){
+  dirtyFix2();
 });
 
 //shamelessly stolen from stackoverflow
@@ -27,8 +33,27 @@ function sleep(ms) {
 
 //please work please work please work
 async function promisedSalvation(){
-  await sleep(5000);
+  await sleep(50);
   doStuffPleaseGod();
+}
+
+async function dirtyFix1(){
+  await sleep(50);
+  var file = img_input.files[0];
+  img.src = URL.createObjectURL(file);
+}
+
+async function dirtyFix2(){
+  await sleep(50);
+  const canvas = document.getElementById('user-image');
+  const ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.rect(0, 0, 400, 400);
+  ctx.fillStyle = "black";
+  ctx.fill();
+  await sleep(50);
+  let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
+  ctx.drawImage(img, gotDimensions.startX, gotDimensions.startY, gotDimensions.width, gotDimensions.height);
 }
 
 
@@ -55,7 +80,7 @@ async function doStuffPleaseGod(){
     //console.log(img.src);
   }
   
-  await sleep(500);
+  await sleep(50);
   //wait(1000);
   // TODO
   console.log("listener fired!");
@@ -71,13 +96,13 @@ async function doStuffPleaseGod(){
 
   //wait
   //wait(1000);
-  await sleep(500);
+  await sleep(50);
 
   // - If you draw the image to canvas here, it will update as soon as a new image is selected
   let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
   ctx.drawImage(img, gotDimensions.startX, gotDimensions.startY, gotDimensions.width, gotDimensions.height);
   //wait(1000);
-  ctx.drawImage(img, 20, 20, 100, 100);
+  //ctx.drawImage(img, 20, 20, 100, 100);
   //document.body.appendChild(img);
   //var fakeImg = document.createElement("img");
   ///fakeImg
