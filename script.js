@@ -1,6 +1,6 @@
 // script.js
-
-var ctr = 0;
+//The last two labs were kinda fun
+//This one is just miserable :(
 
 //placeholder for uploaded image
 var img = new Image()
@@ -10,109 +10,73 @@ var img = new Image()
 const img_input = document.getElementById("image-input");
 //add listener to image upload
 
+
+
+// 1)
+img.addEventListener("load", () =>{
+  onImageLoaded();
+});
+async function onImageLoaded(){
+  await sleep(50);
+  const canvas = document.getElementById('user-image');
+  const ctx = canvas.getContext('2d');
+  ctx.beginPath();
+  ctx.rect(0, 0, 400, 400);
+  ctx.fillStyle = "black";
+  ctx.fill();
+  await sleep(50);
+  let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
+  ctx.drawImage(img, gotDimensions.startX, gotDimensions.startY, gotDimensions.width, gotDimensions.height);
+}
+
+
+
+// 2)
 img_input.addEventListener('input', function (){
-  //alert("AAAAAAAAAAAAAA");
-  //doStuffPleaseGod();
-  //doStuffPleaseGod();
-  //promisedSalvation();
-  //wait(2000);
-  //doStuffPleaseGod();
-  //wait(2000);
-  //alert("aaaaaaaaaaa");
-  dirtyFix1();
+  onImageUpload();
+});
+async function onImageUpload(){
+  await sleep(50);
+  var file = img_input.files[0];
+  img.src = URL.createObjectURL(file);
+}
+
+
+// 3)
+const submit_button = document.querySelector("[type = 'submit']");
+const textbox_top = document.querySelector("[id='text-top']");
+const textbox_bottom = document.querySelector("[id='text-bottom']");
+
+submit_button.addEventListener("submit", function(){
+  ctx.font = "30px Impact";
+ctx.fillText(textbox_top.textContent, 10, 50);
 });
 
-img.addEventListener("load", function(){
-  dirtyFix2();
-});
+
+
+
 
 //shamelessly stolen from stackoverflow
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-//please work please work please work
-async function promisedSalvation(){
-  await sleep(50);
-  doStuffPleaseGod();
-}
-
-async function dirtyFix1(){
-  await sleep(50);
-  var file = img_input.files[0];
-  img.src = URL.createObjectURL(file);
-}
-
-async function dirtyFix2(){
-  await sleep(50);
-  const canvas = document.getElementById('user-image');
-  const ctx = canvas.getContext('2d');
-  ctx.beginPath();
-  ctx.rect(0, 0, 400, 400);
-  ctx.fillStyle = "black";
-  ctx.fill();
-  await sleep(50);
-  let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
-  ctx.drawImage(img, gotDimensions.startX, gotDimensions.startY, gotDimensions.width, gotDimensions.height);
-}
 
 
-const submit_button = document.querySelector("[type = 'submit']");
-submit_button.textContent = "hello";
 
-//submit_button.addEventListener('click', doStuffPleaseGod);
 
-//whenever *anything* happens, apparently. sheesh.
-async function doStuffPleaseGod(){
-  //ctr += 1;
-  //submit_button.textContent = "aaaaaa" + ctr;
 
-  //just to make sure this is running
-  //alert("Hello there!");
 
-  //wait(1000);
-  var file = img_input.files[0];
-  //wait(1000);
-  if(true){
-    img.src = URL.createObjectURL(file);
-    //img.src = "images/lab.jpg"
-    //console.log(img);
-    //console.log(img.src);
-  }
-  
-  await sleep(50);
-  //wait(1000);
-  // TODO
-  console.log("listener fired!");
-  const canvas = document.getElementById('user-image');
-  const ctx = canvas.getContext('2d');
-  // Some helpful tips:
-  // - Fill the whole Canvas with black first to add borders on non-square images, then draw on top
-  ctx.beginPath();
-  ctx.rect(0, 0, 400, 400);
-  ctx.fillStyle = "black";
-  ctx.fill();
-  // - Clear the form when a new image is selected
-
-  //wait
-  //wait(1000);
-  await sleep(50);
-
-  // - If you draw the image to canvas here, it will update as soon as a new image is selected
-  let gotDimensions = getDimensions(canvas.width, canvas.height, img.width, img.height);
-  ctx.drawImage(img, gotDimensions.startX, gotDimensions.startY, gotDimensions.width, gotDimensions.height);
-  //wait(1000);
-  //ctx.drawImage(img, 20, 20, 100, 100);
-  //document.body.appendChild(img);
-  //var fakeImg = document.createElement("img");
-  ///fakeImg
-  //document.body.appendChild(fakeImg);
-  console.log("last line");
-}
 
 
 //stops the submit button reloading the page
 document.querySelector("[type='submit']").addEventListener("click", function(event) {event.preventDefault()});
+//const submit_button = document.querySelector("[type = 'submit']");
+
+
+
+
+
 
 function wait(ms){
   let then = Date.now() + ms;
