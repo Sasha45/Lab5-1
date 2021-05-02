@@ -80,6 +80,17 @@ function onSubmit(){
 
 
 
+// 4)
+clear_button.addEventListener("click", function(){
+  //clear
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //buttons
+  clear_button.disabled = true;
+  read_text.disabled = true;
+});
+
+
+
 
 //shamelessly stolen from stackoverflow
 function sleep(ms) {
