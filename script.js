@@ -91,6 +91,89 @@ clear_button.addEventListener("click", function(){
 
 
 
+// 5)
+
+//populate dropdown
+var voices = [];
+voices = window.speechSynthesis.getVoices();
+var dropdown = document.querySelector("[name='voices']");
+const badElement = document.querySelector("[value='none']");
+//badElement.display = "none";
+//stolen from somewhere
+dropdown.disabled = false;
+for(let i = 0; i < voices.length; i++) {
+  let newOption = document.createElement('option');
+  option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+  option.setAttribute('data-lang', voices[i].lang);
+  option.setAttribute('data-name', voices[i].name);
+  dropdown.appendChild(option);
+  console.log(voices[i].name);
+}
+
+
+/**Stolen from tutorial */
+var synth = window.speechSynthesis;
+function populateVoiceList() {
+  voices = synth.getVoices();
+  var selectedIndex = dropdown.selectedIndex < 0 ? 0 : dropdown.selectedIndex;
+  dropdown.innerHTML = '';
+  for(let i = 0; i < voices.length ; i++) {
+    var option = document.createElement('option');
+    option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+
+    if(voices[i].default) {
+      option.textContent += ' -- DEFAULT';
+    }
+
+    option.setAttribute('data-lang', voices[i].lang);
+    option.setAttribute('data-name', voices[i].name);
+    dropdown.appendChild(option);
+  }
+  dropdown.selectedIndex = selectedIndex;
+}
+populateVoiceList();
+
+//idk what this does
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = populateVoiceList;
+}
+
+
+read_text.addEventListener("click", function(){
+  let utterance = new SpeechSynthesisUtterance(textbox_top.value + " "+ textbox_bottom.value);
+  var selectedOption = dropdown.selectedOptions[0].getAttribute('data-name');
+  for(let i = 0; i < voices.length; i++) {
+    if(voices[i].name === selectedOption) {
+      utterance.voice = voices[i];
+    }
+  }
+  utterance.volume = vol_slider.value/100;
+  //alert(vol_slider.value);
+  //speak
+  speechSynthesis.speak(utterance);
+});
+
+
+
+// 6)
+const vol_slider = document.querySelector("[type='range']");
+var volume = 100;
+const vol_icon = document.querySelector("[alt='Volume Level 3']");
+vol_slider.addEventListener("input", function(){
+  volume = vol_slider.value;
+  if(volume >= 67){
+    vol_icon.src = "icons/volume-level-3.svg";
+  } else if(volume >= 34){
+    vol_icon.src = "icons/volume-level-2.svg";
+  } else if(volume >= 1){
+    vol_icon.src = "icons/volume-level-1.svg";
+  } else {
+    vol_icon.src = "icons/volume-level-0.svg";
+  }
+});
+
+
+
 
 //shamelessly stolen from stackoverflow
 function sleep(ms) {
